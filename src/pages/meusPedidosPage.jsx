@@ -1,6 +1,7 @@
 import { useCart } from '../contexts/cartContext';
 import { useState } from 'react';
 import { FaQrcode, FaMoneyBillAlt, FaCreditCard } from 'react-icons/fa';
+import SafeImage from '../components/safeImage';
 
 const MeusPedidosPage = () => {
   const { cartItems, addToCart, decreaseQuantity, removeFromCart, clearCart, getSalePrice } = useCart();
@@ -57,16 +58,19 @@ const MeusPedidosPage = () => {
         <>
           <ul className="space-y-4">
             {cartItems.map((item, index) => (
-              <li key={item?.id ?? index} className="border p-4 rounded shadow-sm bg-white flex justify-between items-center">
-                <div>
-                  <p className="font-medium">{item?.name || item?.title || "Produto sem título"}</p>
-                  <p className="text-sm text-gray-500">{item?.category || "Categoria desconhecida"}</p>
-                  <p className="font-bold text-primary">R$ {getSalePrice(item).toFixed(2)} cada</p>
-                  <div className="mt-2 flex items-center gap-3">
-                    <button onClick={() => decreaseQuantity(item.id)} className="w-8 h-8 rounded border border-gray-300 hover:bg-gray-100" aria-label={`Diminuir quantidade de ${item.name}`}>−</button>
-                    <span className="font-semibold" aria-label="Quantidade">{item.quantity}</span>
-                    <button onClick={() => addToCart(item)} disabled={Number.isFinite(item.stock) && item.quantity >= item.stock} className="w-8 h-8 rounded border border-gray-300 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40" aria-label={`Aumentar quantidade de ${item.name}`}>+</button>
-                    <span className="text-sm text-gray-600">Subtotal: R$ {(getSalePrice(item) * item.quantity).toFixed(2)}</span>
+              <li key={item?.id ?? index} className="flex items-center justify-between gap-4 rounded border bg-white p-4 shadow-sm">
+                <div className="flex min-w-0 items-center gap-4">
+                  <SafeImage src={item?.image || item?.images?.[0]?.src} alt={item?.name || item?.title || 'Produto'} className="h-20 w-20 shrink-0 rounded-md bg-gray-100 object-contain p-1" />
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{item?.name || item?.title || "Produto sem título"}</p>
+                    <p className="text-sm text-gray-500">{item?.category || "Categoria desconhecida"}</p>
+                    <p className="font-bold text-primary">R$ {getSalePrice(item).toFixed(2)} cada</p>
+                    <div className="mt-2 flex flex-wrap items-center gap-3">
+                      <button onClick={() => decreaseQuantity(item.id)} className="h-8 w-8 rounded border border-gray-300 hover:bg-gray-100" aria-label={`Diminuir quantidade de ${item.name}`}>−</button>
+                      <span className="font-semibold" aria-label="Quantidade">{item.quantity}</span>
+                      <button onClick={() => addToCart(item)} disabled={Number.isFinite(item.stock) && item.quantity >= item.stock} className="h-8 w-8 rounded border border-gray-300 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40" aria-label={`Aumentar quantidade de ${item.name}`}>+</button>
+                      <span className="text-sm text-gray-600">Subtotal: R$ {(getSalePrice(item) * item.quantity).toFixed(2)}</span>
+                    </div>
                   </div>
                 </div>
                 <button

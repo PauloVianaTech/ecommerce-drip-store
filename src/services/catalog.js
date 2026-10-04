@@ -41,6 +41,8 @@ export const normalizeProduct = (product) => {
     stock: product.stock ?? 0,
     enabled: product.enabled ?? true,
     brand: product.brand || 'Drip Store',
+    gender: product.gender || 'Unissex',
+    condition: product.condition || 'Novo',
     stars: toNumber(product.stars, 5),
     rating: toNumber(product.rating, 0),
     sizes: optionValues(options, ['tamanho', 'tamanhos']),

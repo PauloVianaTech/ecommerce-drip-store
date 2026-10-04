@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/cartContext';
+import SafeImage from './safeImage';
 
 const CartDropdown = ({ isOpen, onClose }) => {
   const { cartItems, clearCart } = useCart();
@@ -41,7 +42,7 @@ const CartDropdown = ({ isOpen, onClose }) => {
               {cartItems.map(item => (
                 <div key={item.id} className="flex items-center gap-4 mb-4">
                   <div className="w-16 h-16 bg-gray-100 rounded-md flex items-center justify-center p-1">
-                    <img src={item.image} alt={item.name} className="max-h-full max-w-full object-contain" />
+                    <SafeImage src={item.image} alt={item.name || item.title || 'Produto'} className="max-h-full max-w-full object-contain" />
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold leading-tight">{item.name}</p>

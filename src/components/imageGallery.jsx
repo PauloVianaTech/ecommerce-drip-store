@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import SafeImage from './safeImage';
 
 const ImageGallery = ({ images }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -27,11 +28,7 @@ const ImageGallery = ({ images }) => {
     <div className="flex flex-col gap-4">
       {/* Imagem Principal */}
       <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden group">
-        <img
-          src={images[selectedIndex]}
-          alt="Imagem principal do produto"
-          className="w-full h-full object-contain transition-opacity duration-300"
-        />
+        <SafeImage key={images[selectedIndex]} src={images[selectedIndex]} alt="Imagem principal do produto" className="w-full h-full object-contain transition-opacity duration-300" />
         
         {/* Setas (apenas se houver mais de uma imagem) */}
         {images.length > 1 && (
@@ -65,11 +62,7 @@ const ImageGallery = ({ images }) => {
                   : 'border-transparent hover:border-gray-300'
               }`}
             >
-              <img 
-                src={imgSrc} 
-                alt={`Miniatura ${index + 1}`} 
-                className="w-full h-full object-contain" 
-              />
+              <SafeImage key={imgSrc} src={imgSrc} alt={`Miniatura ${index + 1}`} className="w-full h-full object-contain" />
             </button>
           ))}
         </div>
