@@ -1,6 +1,18 @@
-# Drip Store
+# E-commerce Drip Store
 
-Frontend de uma loja virtual desenvolvido com React e Vite. A aplicação apresenta catálogo de produtos, busca, filtros, página de detalhes, carrinho persistente e autenticação integrada ao Backend GT3.
+Frontend de e-commerce desenvolvido com React e Vite. A aplicação consome a API [Backend GT3](https://github.com/PauloVianaTech/projeto-backend-gt3) para exibir o catálogo, autenticar usuários e integrar filtros de produtos.
+
+## Recursos
+
+- Home com hero em quatro slides, navegação por setas e links para categorias.
+- Catálogo dinâmico consumido da API, com imagens de produtos e tratamento para falhas de carregamento.
+- Busca, ordenação e filtros combinados por categoria, marca, gênero, estado e faixa de preço.
+- Filtro de preço por campos numéricos e dois controles deslizantes conectados.
+- Página de detalhes com galeria, opções de tamanho e cor e produtos relacionados.
+- Carrinho persistente no Local Storage, com miniaturas, quantidade, subtotal, total e checkout simulado.
+- Cadastro, login, logout e rotas protegidas com JWT.
+- Layout responsivo para celular e desktop.
+- Catálogo local usado apenas como alternativa caso a API esteja indisponível.
 
 ## Tecnologias
 
@@ -10,21 +22,13 @@ Frontend de uma loja virtual desenvolvido com React e Vite. A aplicação aprese
 - Tailwind CSS
 - Axios
 - React Icons
-- Local Storage para persistência do carrinho
-
-## Funcionalidades
-
-- Catálogo de produtos com busca, filtros por categoria, marca, gênero e estado, além de ordenação por preço.
-- Página de detalhes com galeria, seleção de tamanho e cor, e produtos relacionados.
-- Carrinho persistente entre recarregamentos da página.
-- Cadastro de usuário e login com JWT por meio da API Backend GT3.
-- Simulação de finalização de pedido.
+- Local Storage
 
 ## Requisitos
 
 - Node.js 20 ou superior
 - npm
-- Backend GT3 em execução para usar cadastro e login
+- [Backend GT3](https://github.com/PauloVianaTech/projeto-backend-gt3) em execução para catálogo, cadastro e autenticação.
 
 ## Instalação
 
@@ -36,13 +40,17 @@ npm install
 
 ## Configuração
 
-Copie `.env.example` para `.env.local` e ajuste a URL da API se necessário:
+Crie um arquivo `.env.local` a partir do exemplo:
+
+```bash
+cp .env.example .env.local
+```
 
 ```dotenv
 VITE_API_URL=http://localhost:3001/v1
 ```
 
-O valor padrão já aponta para o Backend GT3 local.
+Para usar o catálogo de demonstração do backend, execute `npm run seed` no repositório Backend GT3 antes de iniciar o frontend.
 
 ## Execução
 
@@ -50,19 +58,46 @@ O valor padrão já aponta para o Backend GT3 local.
 npm run dev
 ```
 
-Abra o endereço exibido pelo Vite, normalmente `http://localhost:5173`.
+Abra [http://localhost:5173](http://localhost:5173).
 
-## Validação
+## Validação e build
 
 ```bash
 npm run lint
 npm run build
 ```
 
-## Limitações atuais
+Para visualizar a build localmente:
 
-Os dados do catálogo são locais e o checkout é uma simulação. O backend é utilizado para cadastro e autenticação; produtos e pedidos ainda não são persistidos pela interface.
+```bash
+npm run preview
+```
+
+## Fluxo de autenticação
+
+1. Cadastre um usuário pela tela de cadastro.
+2. Entre com e-mail e senha.
+3. O JWT é armazenado localmente e usado nas rotas protegidas.
+4. A página do carrinho exige autenticação.
+
+Os botões de login social e recuperação de senha são apenas elementos visuais nesta versão. O checkout é uma simulação e não cria pedidos no backend.
+
+## Estrutura
+
+```text
+src/
+├── components/    # Componentes reutilizáveis
+├── contexts/      # Contextos de autenticação e carrinho
+├── pages/         # Páginas e rotas
+├── services/      # Comunicação com a API e normalização de dados
+├── data/          # Catálogo alternativo local
+└── assets/        # Logos e recursos visuais
+```
+
+## Backend integrado
+
+API, Swagger, seed e testes: [PauloVianaTech/projeto-backend-gt3](https://github.com/PauloVianaTech/projeto-backend-gt3).
 
 ## Licença
 
-Este projeto é destinado a estudo.
+Projeto de estudo e portfólio.
